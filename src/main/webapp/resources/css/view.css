@@ -1,0 +1,188 @@
+@charset "UTF-8";
+/* 기본 스타일 */
+#news a, #events a {
+    color: rgb(16, 15, 80);
+    text-decoration: none;
+}
+/* 선택된 영역 강조 */
+#news.active {
+    background-color: rgb(16, 15, 80);
+}
+#news.active a {
+    color: white;
+}
+#events.active {
+    background-color: rgb(16, 15, 80);
+}
+#events.active a {
+    color: white;
+}
+.main{
+    padding: 3% 20% 10%;
+}
+.viewWrap{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: right;
+    align-items: center;
+}
+#visitcountWrap, #writerWrap{
+	width: 100%;
+	text-align: right;
+}
+#writerWrap{
+	margin-bottom: 5px;
+}
+#visitcountWrap span, #writerWrap span{
+	font-size: 12px;
+}
+#title{
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    width: 100%;
+    padding: 15px;
+    text-align: center;
+    word-break: keep-all; /* 단어 단위로 줄바꿈 */
+    white-space: normal; /* 기본 줄바꿈 허용 */
+    overflow-wrap: break-word; /* 긴 단어가 있으면 자동 줄바꿈 */
+    font-weight: normal;
+}
+#content{
+    border: 1px solid black;
+    border-bottom-right-radius: 30px;
+    box-shadow: 5px 7px 5px lightgray;
+    box-sizing: border-box;
+    width: 100%;
+    margin-top: 50px;
+    padding: 50px;
+    line-height: 200%;
+    word-break: keep-all; /* 단어 단위로 줄바꿈 */
+    white-space: normal; /* 기본 줄바꿈 허용 */
+    overflow-wrap: break-word; /* 긴 단어가 있으면 자동 줄바꿈 */
+    text-align: center;
+}
+#content img, #content video {
+    max-width: 100%;   /* 부모의 폭을 넘지 않도록 */
+    height: auto;      /* 비율 유지 */
+    display: block;    /* 가운데 정렬 시 필요할 수 있음 */
+    margin: 0 auto;    /* 가운데 정렬 */
+}
+#bottomRow{
+    display: flex;
+    justify-content: right;
+    margin-top: 50px;
+    gap: 3px;
+}
+#editBtn, #deleteBtn{    
+    background-color: rgb(16, 15, 80);
+    padding: 10px;
+    border: none;   
+    font-size: 14px;
+    cursor: pointer;
+    color: white;
+    font-family: 'HANAMDAUM'; 
+}
+#editBtn a{
+	color: white;
+}
+#replyWrap{
+    margin-top: 30px;
+    border: 1px solid black;
+    padding: 25px;
+}
+.otherReplyWrap{
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+#myReplyWrap{
+    padding-top: 10px;
+}
+.replyer{
+    font-family: 'HANAMDAUM';
+    border: none;
+    margin: 7px 0;
+    color: rgb(16, 15, 80);
+    font-size: 14px;
+}
+.replyer:focus, #reply:focus, .otherReply:focus{
+    outline: none;
+}
+#reply, .otherReply, #updateReply{
+    width: 100%;
+    height: 75px;
+    border: none;
+    resize: none;
+    font-size: 14px;
+}
+.otherReply{
+    height: auto;
+}
+#replycontent, #updatecontent{
+    position: relative;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 10px;
+    border-bottom-right-radius: 15px;
+}
+#replyBtn{
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    padding: 7px;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    background-color: rgb(16, 15, 80);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    font-family: 'HANAMDAUM';
+    cursor: pointer;
+    font-size: 12px;
+}
+.date{
+	font-size: 12px;
+	color: #ddd;
+	margin-top: 5px;
+}
+.otherReplyWrap{
+	position: relative;
+}
+.replyBottomRow{
+	position: absolute;
+	bottom: 5px;
+    right: 10px;
+    display: flex;
+    gap: 3px;
+}
+.replyEdit, .replyDelete, #saveupdate, #cancleupdate{
+	border: none;
+	background: #fff;
+	color: rgb(16, 15, 80);
+    font-family: 'HANAMDAUM';
+    cursor: pointer;
+    font-size: 12px;
+}
+.jump{   		
+ 	cursor: pointer;
+}
+#nowp, .nonp{
+	font-family: 'HANAMDAUM';
+}
+@media screen and (max-width: 480px) {
+    section{
+        padding-top: 75px;
+    }
+    #banner h1{
+        margin: 0%;
+    }
+    .main{
+        padding: 5% 10% 10%;
+    }
+    #title{
+        padding: 0;
+    }
+    #content{
+        margin-top: 20px;
+    }
+    
+}

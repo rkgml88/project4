@@ -1,0 +1,24 @@
+@charset "UTF-8";
+footer{
+    padding: 30px 50px;
+    font-size: 10px;
+    position: relative;
+    background-color: rgb(16, 15, 80);
+    color: white;
+    border-top: 2px dashed white;
+}
+footer #flogo{
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    width: 70px;
+}
+footer a{
+    color: white;
+}
+footer #insta{
+    position: absolute;
+    bottom: 10px;
+    right: 55px;
+    width: 25px;
+}

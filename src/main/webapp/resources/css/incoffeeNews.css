@@ -1,0 +1,107 @@
+@charset "UTF-8";
+#news{
+    background-color: rgb(16, 15, 80);
+}
+#news a{
+    color: white;
+}
+#events a{
+    color: rgb(16, 15, 80);
+}
+.main{
+    padding: 3% 20% 10%;
+}
+.posts{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+table{
+    border-bottom: 1px solid rgb(16, 15, 80);
+    width: 100%;
+    border-collapse: collapse;
+}
+td{
+    padding: 20px 0;
+    border-bottom: 1px solid #dbdbe8;
+}
+.subT{
+    border-bottom: 2px solid rgb(16, 15, 80);
+    padding-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+.subT h3, h4{
+	color: rgb(16, 15, 80);
+    margin-bottom: 0;
+}
+.subT a{
+	color: rgb(16, 15, 80);
+}
+.notice {
+    margin: 0 auto;
+    margin-bottom: 30px;
+}
+.accordion-item {
+    background: #fff;
+    overflow: hidden;
+    border-bottom: 1px solid #dbdbe8;
+}
+.accordion-header {
+	display: flex;
+    padding: 20px 0;
+    cursor: pointer;
+    transition: background 0.3s;
+    position: relative;
+}
+.bno, .plus{
+	width:10%;
+	text-align: center;
+}
+.btitle{
+	width: 80%;
+	text-align: center;
+}
+.plus{
+	color: #dbdbe8;
+}
+.modDelBtn{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: absolute;
+    top: 17px;
+    right: 10px;
+    z-index: 10;
+    gap: 5px;
+}
+.modDelBtn button{
+    padding: 7px;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    background-color: rgb(16, 15, 80);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    font-family: 'HANAMDAUM';
+    cursor: pointer;
+    font-size: 12px;
+}
+.accordion-header:hover {
+    background: #dcdcdc;
+}
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 20px;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    background: #eeeeee;
+    font-size:14px;
+}
+.accordion-item.active .accordion-content {
+    max-height: 200px; /* 충분한 높이로 설정 */
+    padding: 0px 20px;
+}
+#postTableBody td{
+	text-align: center;
+}

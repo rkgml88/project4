@@ -1,0 +1,172 @@
+@charset "UTF-8";
+section{
+    padding-top: 110px;
+    overflow-x: hidden;
+}
+#banner{
+    margin: 0%;
+    padding: 30px;
+    background: url(../img/newsBanner.jpg) no-repeat;
+    background-size: 100%;
+    background-position: bottom;
+    color: transparent;
+    -webkit-text-stroke: 1px white;
+    font-size: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#category{
+    text-transform: uppercase;
+    color: transparent;
+    -webkit-text-stroke: 1px rgb(16, 15, 80);
+    text-shadow: 20px 15px 0 rgb(16, 15, 80);
+    letter-spacing: 1.5px;
+    border-bottom: 1.5px solid rgb(16, 15, 80);
+    font-size: 40px;
+    text-align: center;
+    margin-top: 50px;
+}
+.ctgBtn{
+    display: flex;
+    justify-content: center;
+}
+.ctgBtn div{
+    width: 100%;
+    padding: 10px;
+    border: 1px solid rgb(16, 15, 80);
+    text-align: right;
+    margin-bottom: 50px;
+}
+#bottomRow{
+    display: flex;
+    margin-top: 30px;
+    position: relative;
+    justify-content: center;
+}
+#searchFrm{
+    display: flex;
+    margin-bottom: 15px;
+    gap: 5px;
+    position: absolute;
+    left: 0;
+}
+#search{
+    padding: 10px;
+    font-size: 15px;
+    border: none;
+    border-bottom: 1px solid rgb(16, 15, 80);
+}
+input:focus {
+    outline: none;
+}
+#searchBtn{
+    background-color: rgb(16, 15, 80);
+    color: white;
+    border: none;
+    padding: 0 10px;
+    font-family: 'HANAMDAUM';
+    cursor: pointer;
+    border-radius: 5px;
+}
+#pagination{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+#pagination a{
+	color: rgb(16, 15, 80);
+}
+#writeBtn{
+    background-color: rgb(16, 15, 80);
+    padding: 10px;
+    border: none;
+    color: white;
+    font-size: 14px;
+}
+#nowp, .nonp, .jump{
+    padding: 10px 14px;
+    border: none;
+    border-radius: 5px;
+    font-size: 12px;
+}
+#nowp{
+	color: white;
+	font-weight: bold;
+	background-color: rgb(16, 15, 80);
+}
+.nonp, .jump{
+	background-color: #eeeeee;
+}
+.jump{
+	padding: 10px 12px;
+}
+#writeBtn{
+    position: absolute;
+    right: 0%;
+    cursor: pointer;
+}
+#writeBtn a{
+	color: white;
+	font-family: 'HANAMDAUM';
+}
+.posts a{
+	color: black;
+}
+
+@media screen and (max-width: 1080px){
+    .main{
+        padding: 3% 10% 10%;
+    }
+    .ctgBtn div{
+        margin-top: 10px;
+        margin-bottom: 30px;
+    }
+    #search{
+        width: 100px;
+    }
+}
+@media screen and (max-width: 480px) {
+    section{
+        padding-top: 75px;
+    }
+    #banner{
+        padding-bottom: 0%;
+    }
+    #banner h1{
+        margin-bottom: 0%;
+    }
+    #category{
+        margin-top: 0px;
+    }
+    .ctgBtn{
+        margin: 0 auto;
+        font-size: 15px;
+        word-break: keep-all; /* 단어 단위로 줄바꿈 */
+        white-space: normal; /* 기본 줄바꿈 허용 */
+        overflow-wrap: break-word; /* 긴 단어가 있으면 자동 줄바꿈 */
+    }
+    #bottomRow{
+        display: block;
+        text-align: center;
+    }
+    #searchFrm{
+        position: relative;
+    }
+    #search{
+        width: 100px;
+    }
+    .pagingImg{
+        margin-bottom: 10px;
+    }
+    #nowp, .nonp, .jump{
+	    padding: 8px 12px;
+	    border: none;
+	    border-radius: 5px;
+	    font-size: 10px;
+	}
+	.jump{
+		padding: 8px 10px;
+	}
+}

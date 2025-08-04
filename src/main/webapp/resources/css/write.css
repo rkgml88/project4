@@ -1,0 +1,79 @@
+@charset "UTF-8";
+@font-face {
+    font-family: 'HANAMDAUM';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/HANAMDAUM.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+section{
+    overflow-x: hidden;
+    padding: 5% 15%;
+    padding-top: 150px;
+    font-family: 'HANAMDAUM';
+    background-color: whitesmoke;
+}
+#mainT{
+    background-color: rgb(16, 15, 80);
+    color: white;
+    padding: 20px;
+    margin-bottom: 50px;
+    border-bottom: 2px dashed white;
+    width: 100%;
+    box-sizing: border-box;
+}
+.subT{
+	color: rgb(16, 15, 80);
+}
+.box{
+    border: 1px solid #ddd;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    cursor: pointer;
+}
+.box:focus {
+            outline: none;
+        }
+#titleSlt{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas: 'ctgSlt subCtgSlt typeSlt';
+    gap: 5px;
+    margin-bottom: 5px;
+}
+#ctgSlt{
+    grid-area: ctgSlt;
+    border-top-left-radius: 10px;
+}
+#subCtgSlt{
+    grid-area: subCtgSlt;
+}
+#typeSlt{
+    grid-area: typeSlt;
+    border-top-right-radius: 10px;
+}
+#title{
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    margin-bottom: 15px;
+}
+.cate{
+    font-size: 15px;
+    margin: 5px 0;
+}
+#submitBtn, #backBtn{
+    background-color: rgb(16, 15, 80);
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 30px;
+    color: white;
+    font-family: 'HANAMDAUM';
+    cursor: pointer;
+}
+.blue{
+    font-size: 14px;
+    color: darkblue;
+}

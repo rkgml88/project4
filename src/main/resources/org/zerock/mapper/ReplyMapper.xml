@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.zerock.mapper.ReplyMapper">
+
+	<!-- 댓글 목록 가져오기 -->
+    <select id="getList" parameterType="int" resultType="org.zerock.domain.ReplyDTO">
+        SELECT * FROM reply WHERE num = #{num} ORDER BY rnum DESC
+    </select>
+
+    <!-- 댓글 추가 -->
+    <insert id="insert" parameterType="org.zerock.domain.ReplyDTO">
+        INSERT INTO reply (num, reply, replyer, replydate, updatedate)
+        VALUES (#{num}, #{reply}, #{replyer}, NOW(), NOW())
+    </insert>
+
+    <!-- 댓글 삭제 -->
+    <delete id="delete" parameterType="int">
+        DELETE FROM reply WHERE rnum = #{rnum}
+    </delete>
+
+    <!-- 댓글 수정 -->
+    <update id="update" parameterType="org.zerock.domain.ReplyDTO">
+        UPDATE reply
+        SET reply = #{reply}, updatedate = NOW()
+        WHERE rnum = #{rnum}
+    </update>
+    
+    <select id="getListPage" parameterType="map" resultType="org.zerock.domain.ReplyDTO">
+	    SELECT * FROM reply
+	    WHERE num = #{num}
+	    ORDER BY rnum DESC
+	    LIMIT #{size} OFFSET #{offset}
+	</select>
+	
+	<select id="countReplies" resultType="int">
+	    SELECT COUNT(*) FROM reply WHERE num=#{num}
+	</select>
+    
+</mapper>

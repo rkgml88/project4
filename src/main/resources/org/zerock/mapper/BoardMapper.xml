@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.zerock.mapper.BoardMapper">
+
+<insert id="insertPost">
+    insert into board 
+    	(title, content, category, subCategory, type, writer, thumbnail) 
+    values 
+    	(#{title}, #{content}, #{category}, #{subCategory}, #{type}, #{writer}, #{thumbnail})
+</insert>
+
+<select id="findByCtgPaging" parameterType="map" resultType="org.zerock.domain.BoardDTO">
+    SELECT * FROM board
+    WHERE category=#{category} AND subCategory=#{subCategory}
+    <if test="type != null">
+        AND type IN
+        <foreach item="t" collection="type.split(',')" open="(" separator="," close=")">
+            #{t}
+        </foreach>
+    </if>
+    <if test="search != null and search != ''">
+        AND (title LIKE CONCAT('%', #{search}, '%') OR content LIKE CONCAT('%', #{search}, '%'))
+    </if>
+    ORDER BY num DESC
+    LIMIT #{offset}, #{limit}
+</select>
+
+<select id="countByCtg" parameterType="map" resultType="int">
+    SELECT COUNT(*) FROM board
+    WHERE category=#{category} AND subCategory=#{subCategory}
+    <if test="type != null">
+        AND type IN
+        <foreach item="t" collection="type.split(',')" open="(" separator="," close=")">
+            #{t}
+        </foreach>
+    </if>
+    <if test="search != null and search != ''">
+        AND (title LIKE CONCAT('%', #{search}, '%') OR content LIKE CONCAT('%', #{search}, '%'))
+    </if>
+</select>
+
+<select id="findByNum" resultType="org.zerock.domain.BoardDTO">
+	select * from board where num=#{num}
+</select>
+
+<update id="modify">
+	update board set
+		category=#{category},
+		subCategory=#{subCategory},
+		type=#{type},
+		title = #{title},
+		content = #{content},
+		thumbnail=#{thumbnail},
+		updatedate = sysdate()
+	where num = #{num}
+</update>
+
+<delete id="delete">
+	delete from board where num = #{num}
+</delete>
+
+<update id="visitcount">
+	update board set visitcount = visitcount + 1 where num = #{num}
+</update>
+
+</mapper>
