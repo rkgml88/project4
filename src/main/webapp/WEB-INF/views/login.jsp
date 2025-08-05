@@ -52,7 +52,7 @@
                     <input type="checkbox" name="loginSave" id="loginSave">
                     <label for="loginSave" style="cursor: pointer;">로그인 상태 유지</label>
                     <input type="submit" value="로그인">
-                    <button id="joinBtn"><a href="joinU" >회원가입</a></button>
+                    <button type="button" id="joinBtn"><a href="joinU" >회원가입</a></button>
                 </form>
             </div>
         </section>

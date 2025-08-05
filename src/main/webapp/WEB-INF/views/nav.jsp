@@ -18,7 +18,7 @@
                     <div id="submenu-column1">
                         <ul>
                             <li><a href="about">INCOFFEE 소개</a></li>
-                            <li><a href="">찾아오시는 길</a></li>
+                            <li><a href="map">찾아오시는 길</a></li>
                         </ul>
                     </div>
                     <div id="submenu-column2">
@@ -79,7 +79,7 @@
                 <li class="mobile-mainmenu">cafe
                     <ul class="mobile-submenu">
                         <li><a href="about">INCOFFEE 소개</a></li>
-                        <li><a href="">찾아오시는 길</a></li>
+                        <li><a href="map">찾아오시는 길</a></li>
                     </ul>
                 </li>
                 <li class="mobile-mainmenu">menu

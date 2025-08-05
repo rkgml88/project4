@@ -18,10 +18,10 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
                                         HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
 
-        // ·Î±×ÀÎÇÑ »ç¿ëÀÚÀÇ ±ÇÇÑ ¸ñ·Ï °¡Á®¿À±â
+        // ë¡œê·¸ì¸í•œ ì‚¬ìš©ìì˜ ê¶Œí•œ ëª©ë¡ ê°€ì ¸ì˜¤ê¸°
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 
-        String redirectUrl = "/"; // ±âº» ¸®´ÙÀÌ·ºÆ® URL
+        String redirectUrl = "/"; // ê¸°ë³¸ ë¦¬ë‹¤ì´ë ‰íŠ¸ URL
 
         
         for (GrantedAuthority authority : authorities) {
@@ -35,7 +35,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
             }
         }
 
-        // ÃÖÁ¾ ¸®´ÙÀÌ·ºÆ®
+        // ìµœì¢… ë¦¬ë‹¤ì´ë ‰íŠ¸
         response.sendRedirect(redirectUrl);
     }
 }

@@ -14,6 +14,7 @@ public class MemberDTO {
 	private String postcode;
 	private String address1;
 	private String address2;
+	private String marketingYn;
 	private Date regidate;
 	private String role;
 }

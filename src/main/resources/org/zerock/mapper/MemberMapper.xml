@@ -8,8 +8,8 @@
 
 <insert id="insertMember">
 	insert into member
-		(username, password, name, tel, email, postcode, address1, address2, role)
-	values (#{username}, #{password}, #{name}, #{tel}, #{email}, #{postcode}, #{address1}, #{address2}, #{role})
+		(username, password, name, tel, email, postcode, address1, address2, role, marketingYn)
+	values (#{username}, #{password}, #{name}, #{tel}, #{email}, #{postcode}, #{address1}, #{address2}, #{role}, #{marketingYn})
 </insert>
 
 <select id="findByusername" resultType="org.zerock.domain.MemberDTO">
@@ -23,7 +23,8 @@
         email=#{email},
         postcode=#{postcode},
         address1=#{address1},
-        address2=#{address2}
+        address2=#{address2},
+        marketingYn=#{marketingYn}
     WHERE username=#{username}
 </update>
 

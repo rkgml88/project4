@@ -62,11 +62,20 @@ $(function(){
 $(document).ready(function(){
 		// 적절한 값이 입력되면 에러메시지 제거
 		$("#id").on("input", function () {
-			this.value = this.value.replace(/[^A-Za-z0-9]/g, "");
-    	    if (/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,20}$/.test(this.value)) {
-    	        $("#idErrMsg").html("");
-    	    }
-    	});
+		    this.value = this.value.replace(/[^A-Za-z0-9]/g, "");
+		
+		    // 아이디 입력이 바뀌면 중복확인 상태를 무효화
+		    idCheckDone = false;
+		    canUseId = false;
+		
+		    // 메시지도 초기화
+		    $("#idErrMsg").html("");
+		    $("#idCheck").html("");
+		
+		    if (/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,20}$/.test(this.value)) {
+		        $("#idErrMsg").html("");
+		    }
+		});
     	
     	$("#pw").on("input", function () {
     	    if (/^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+{}\[\]:;"'<>,.?/~`|\\])[A-Za-z\d!@#$%^&*()\-_=+{}\[\]:;"'<>,.?/~`|\\]{8,25}$/.test(this.value)) {
@@ -99,11 +108,11 @@ $(document).ready(function(){
     	    }
     	});
     	
-    	$("#postcode").on("input", function () {
+    	/*$("#postcode").on("input", function () {
     	    if ($(this).val().trim() !== "") {
     	        $("#addrErrMsg").html("");
     	    }
-    	});
+    	});*/
     	
     	let idCheckDone = false;   // 중복확인 완료 여부
 		let canUseId = false;      // 사용 가능한 아이디인지 여부
@@ -143,6 +152,27 @@ $(document).ready(function(){
 		    });
 		});
 
+	// 입력 중 자동 하이픈
+    var $telInput = $("#tel");
+    
+    $telInput.on("input", function() {
+        var raw = $(this).val().replace(/[^0-9]/g, "");
+
+        if (raw.length <= 10) {
+            if (raw.startsWith("02") && raw.length >= 9) {
+                $(this).val(raw.replace(/^(\d{2})(\d{3,4})(\d{4})$/, "$1-$2-$3"));
+            } else if (raw.length >= 10) {
+                $(this).val(raw.replace(/^(\d{3})(\d{3,4})(\d{4})$/, "$1-$2-$3"));
+            } else {
+                $(this).val(raw);
+            }
+        } else if (raw.length === 11) {
+            $(this).val(raw.replace(/^(\d{3})(\d{4})(\d{4})$/, "$1-$2-$3"));
+        } else {
+            $(this).val(raw);
+        }
+    });
+    
     $("#joinFrm").on("submit", function (e) {
         e.preventDefault();
 
@@ -153,11 +183,11 @@ $(document).ready(function(){
         const name = $("#name").val().trim();
         const tel = $("#tel").val().trim();
         const email = $("#email").val().trim();
-        const postcode = $("#sample6_postcode").val().trim();
-        const agree = $("input[name='agree']:checked").val();
+        // const postcode = $("#sample6_postcode").val().trim();
+        const marketingYn = $("input[name='marketingYn']:checked").val();
 
         // 에러 초기화
-        $("#idErrMsg, #pwErrMsg, #pwErrMsg2, #nameErrMsg, #telErrMsg, #emailErrMsg, #addrErrMsg, #agreeErrMsg").html("");
+        $("#idErrMsg, #pwErrMsg, #pwErrMsg2, #nameErrMsg, #telErrMsg, #emailErrMsg, #addrErrMsg").html("");
 
         if (!id) {
             $("#idErrMsg").html("아이디를 입력해 주십시오.");
@@ -189,11 +219,12 @@ $(document).ready(function(){
             $("#nameErrMsg").html("이름을 입력해 주십시오.");
             isValid = false;
         }
-
+        
+		const telRaw = tel.replace(/-/g, "");
         if (!tel) {
             $("#telErrMsg").html("전화번호를 입력해 주십시오.");
             isValid = false;
-        } else if (!/^\d{8,11}$/.test(tel)) {
+        } else if (!/^\d{8,11}$/.test(telRaw)) {
             $("#telErrMsg").html("전화번호는 숫자만 8~11자리 입력해 주십시오.");
             isValid = false;
         }
@@ -203,7 +234,7 @@ $(document).ready(function(){
             isValid = false;
         }
         
-        if (!postcode) {
+        /*if (!postcode) {
             $("#addrErrMsg").html("주소를 입력해 주십시오.");
             isValid = false;
         }
@@ -211,9 +242,16 @@ $(document).ready(function(){
         if (!agree) {
             $("#agreeErrMsg").html("약관에 동의해 주십시오.");
             isValid = false;
-        }
+        }*/
 
         if (isValid) {
+        	if (!$("input[name='marketingYn']").is(":checked")) {
+		        $("#joinFrm").append('<input type="hidden" name="marketingYn" value="N">');
+		    }
+		    
+		    // 하이픈 제거
+        	$("#tel").val($("#tel").val().replace(/-/g, ""));
+		    
             this.submit();
         }
     });

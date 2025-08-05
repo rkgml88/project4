@@ -19,7 +19,7 @@ section{
 }
 #main{
     border: 2px solid rgb(16, 15, 80);
-    padding: 80px 70px;
+    padding: 80px 70px 50px;
 }
 #nameWrap, #infoWrap{
     border: 1px solid #ddd;
@@ -55,12 +55,25 @@ input:focus{
 	border: 1px solid #ddd;
 	box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 	padding: 10px;
-	padding-left: 20px;
+	padding-left: 50px;
 	border-radius: 20px;
 	width: 100%;
     box-sizing: border-box;
     font-family: 'HANAMDAUM';
     font-size: 15px; 
+}
+#emailWrap, #telWrap{
+	position: relative;
+}
+.email-icon, .tel-icon{
+	position: absolute;
+	top: 10px;
+    left: 20px;
+    font-size: 20px;
+    color: #ddd;
+}
+#addWrap{
+	padding-left: 15px;
 }
 #sample6_postcode, #sample6_address, #sample6_detailAddress{
 	border: none;
@@ -91,11 +104,16 @@ input:focus{
 	border-top: 1px solid #ddd;
 	border-bottom: 1px solid #ddd;
 }
-
+#chk{
+	margin-top: 10px;
+}
+input[type=checkbox]:checked {
+    accent-color: rgb(16, 15, 80);
+}
 #bottomRow{
     display: flex;
     justify-content: center;
-    margin-top: 25px;
+    margin-top: 50px;
     gap: 3px;
 }
 #editBtn, #cancelBtn{
@@ -119,4 +137,10 @@ input:focus{
     cursor: pointer;
     font-size: 15px;
     margin-top: 15px;
+}
+.red{
+    font-size: 14px;
+    margin-top: 0;
+    margin-bottom: 5px;
+    color: darkred;
 }

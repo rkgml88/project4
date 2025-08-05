@@ -13,7 +13,7 @@ public class MemberService {
     private MemberMapper memberMapper;
 	
 	public void insertMember(MemberDTO member) {
-        // ºñ¹Ð¹øÈ£ ¾ÏÈ£È­ ¿¹½Ã (Spring Security)
+        // ë¹„ë°€ë²ˆí˜¸ ì•”í˜¸í™” ì˜ˆì‹œ (Spring Security)
         String encodedPassword = new BCryptPasswordEncoder().encode(member.getPassword());
         member.setPassword(encodedPassword);
 

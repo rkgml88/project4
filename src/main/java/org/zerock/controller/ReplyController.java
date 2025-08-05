@@ -24,14 +24,14 @@ public class ReplyController {
 	@Autowired
     private ReplyService replyService;
 
-    // ´ñ±Û ¸®½ºÆ® °¡Á®¿À±â (AJAX)
+    // ëŒ“ê¸€ ë¦¬ìŠ¤íŠ¸ ê°€ì ¸ì˜¤ê¸° (AJAX)
     @GetMapping("/list")
     @ResponseBody
     public List<ReplyDTO> getList(@RequestParam int num) {
         return replyService.getList(num);
     }
 
-    // ´ñ±Û Ãß°¡
+    // ëŒ“ê¸€ ì¶”ê°€
     @PostMapping("/insert")
     @ResponseBody
     public String addReply(@RequestBody ReplyDTO replyDTO) {
@@ -44,7 +44,7 @@ public class ReplyController {
         return "success";
     }
 
-    // ´ñ±Û »èÁ¦
+    // ëŒ“ê¸€ ì‚­ì œ
     @PostMapping("/delete")
     @ResponseBody
     public void deleteReply(@RequestBody Map<String, Integer> data) {
@@ -53,7 +53,7 @@ public class ReplyController {
     }
 
 
-    // ´ñ±Û ¼öÁ¤
+    // ëŒ“ê¸€ ìˆ˜ì •
     @PostMapping("/update")
     @ResponseBody
     public String updateReply(@RequestBody ReplyDTO replyDTO) {

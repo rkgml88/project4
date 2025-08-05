@@ -44,25 +44,30 @@ public class MemberController {
 	@PostMapping("/checkUsername")
 	@ResponseBody
 	public String checkUsername(@RequestParam String username) {
-	    boolean exists = memberService.existsByUsername(username); // DB Á¶È¸
+	    boolean exists = memberService.existsByUsername(username); // DB ì¡°íšŒ
 	    return exists ? "FAIL" : "OK";
 	}
 
     @PostMapping("/joinU")
     public String joinUser(@ModelAttribute MemberDTO member, RedirectAttributes redirectAttributes) {
-        // »ç¿ëÀÚ role °íÁ¤
+    	// ë§ˆì¼€íŒ… ì²´í¬ ì•ˆ í–ˆì„ ê²½ìš° 'N'ìœ¼ë¡œ ì²˜ë¦¬
+        if (member.getMarketingYn() == null) {
+            member.setMarketingYn("N");
+        }
+    	
+        // ì‚¬ìš©ì role ê³ ì •
     	member.setRole("ROLE_USER");
     	memberService.insertMember(member);
-    	redirectAttributes.addFlashAttribute("msg", "È¸¿ø°¡ÀÔÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù.");
+    	redirectAttributes.addFlashAttribute("msg", "íšŒì›ê°€ì…ì´ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.");
         return "redirect:/login";
     }
 
     @PostMapping("/joinA")
     public String joinAdmin(@ModelAttribute MemberDTO member, RedirectAttributes redirectAttributes) {
-        // °ü¸®ÀÚ role °íÁ¤
+        // ê´€ë¦¬ì role ê³ ì •
     	member.setRole("ROLE_ADMIN");
     	memberService.insertMember(member);
-    	redirectAttributes.addFlashAttribute("msg", "È¸¿ø°¡ÀÔÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù.");
+    	redirectAttributes.addFlashAttribute("msg", "íšŒì›ê°€ì…ì´ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.");
         return "redirect:/login";
     }
     
@@ -77,9 +82,14 @@ public class MemberController {
 
     @PostMapping("/update")
     public String updateMember(MemberDTO member) {
-        // usernameÀº member.username¿¡ µé¾î ÀÖÀ½
+    	// ë§ˆì¼€íŒ… ì²´í¬ ì•ˆ í–ˆì„ ê²½ìš° 'N'ìœ¼ë¡œ ì²˜ë¦¬
+        if (member.getMarketingYn() == null) {
+            member.setMarketingYn("N");
+        }
+        
+        // usernameì€ member.usernameì— ë“¤ì–´ ìˆìŒ
         memberService.updateMember(member);
-        return "redirect:/userinfo"; // ´Ù½Ã È¸¿øÁ¤º¸ ÆäÀÌÁö·Î
+        return "redirect:/userinfo"; // ë‹¤ì‹œ íšŒì›ì •ë³´ í˜ì´ì§€ë¡œ
     }
     
     @PostMapping("/deleteMember")
@@ -90,13 +100,13 @@ public class MemberController {
     		Model model) {
         memberService.deleteMember(username);
         
-        // ·Î±×¾Æ¿ô Ã³¸®
+        // ë¡œê·¸ì•„ì›ƒ ì²˜ë¦¬
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null){
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
         
-        model.addAttribute("message", "È¸¿ø Å»ÅğµÇ¼Ì½À´Ï´Ù.");
+        model.addAttribute("message", "íšŒì› íƒˆí‡´ë˜ì…¨ìŠµë‹ˆë‹¤.");
         model.addAttribute("redirectUrl", "/main");
         return "alertRedirect";
     }

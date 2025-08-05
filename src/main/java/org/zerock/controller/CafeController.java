@@ -16,4 +16,10 @@ public class CafeController {
         
         return "about";
     }
+	
+	@GetMapping("/map")
+    public String redirectMapGet() {
+        
+        return "map";
+    }
 }

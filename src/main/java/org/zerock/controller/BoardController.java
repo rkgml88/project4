@@ -37,13 +37,13 @@ public class BoardController {
     private ServletContext servletContext;
 
     @Autowired
-    private BoardService boardService; // Service ·¹ÀÌ¾î ¿¹½Ã
+    private BoardService boardService; // Service ë ˆì´ì–´ ì˜ˆì‹œ
 
     @PostMapping("/board/uploadFile")
     @ResponseBody
     public Map<String, String> uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
-    	System.out.println("=== uploadFile È£ÃâµÊ ===");
-        System.out.println("ÆÄÀÏ ÀÌ¸§: " + file.getOriginalFilename());
+    	System.out.println("=== uploadFile í˜¸ì¶œë¨ ===");
+        System.out.println("íŒŒì¼ ì´ë¦„: " + file.getOriginalFilename());
     	
     	String uploadDir = servletContext.getRealPath("/resources/upload");
         File dir = new File(uploadDir);
@@ -61,17 +61,17 @@ public class BoardController {
     @PostMapping("/board/savePost")
     @ResponseBody
     public Map<String, Object> savePost(@RequestBody BoardDTO board) {
-    	// ·Î±×ÀÎÇÑ »ç¿ëÀÚ Á¤º¸ °¡Á®¿À±â
+    	// ë¡œê·¸ì¸í•œ ì‚¬ìš©ì ì •ë³´ ê°€ì ¸ì˜¤ê¸°
     	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     	String username = authentication.getName();
     	
-    	// ÀÛ¼ºÀÚ ÀÚµ¿ ¼¼ÆÃ
+    	// ì‘ì„±ì ìë™ ì„¸íŒ…
     	board.setWriter(username);
     	
-    	// DB¿¡ ÀúÀå
+    	// DBì— ì €ì¥
         boardService.insertPost(board);
         
-        // ÀÀ´ä
+        // ì‘ë‹µ
         Map<String, Object> res = new HashMap<>();
         res.put("success", true);
         return res;
@@ -118,36 +118,36 @@ public class BoardController {
 
         int pageSize = 5;
 
-        // °øÁö»çÇ× ÆÄ¶ó¹ÌÅÍ
+        // ê³µì§€ì‚¬í•­ íŒŒë¼ë¯¸í„°
         Map<String, Object> noticeParams = new HashMap<>();
         noticeParams.put("category", "News");
-        noticeParams.put("subCategory", "INCOFFEE¼Ò½Ä");
-        noticeParams.put("type", "°øÁö»çÇ×");
+        noticeParams.put("subCategory", "INCOFFEEì†Œì‹");
+        noticeParams.put("type", "ê³µì§€ì‚¬í•­");
         noticeParams.put("offset", (pageNotice - 1) * pageSize);
         noticeParams.put("limit", pageSize);
         if (search != null && !search.isEmpty()) {
             noticeParams.put("search", search);
         }
 
-        // ´º½º ÆÄ¶ó¹ÌÅÍ
+        // ë‰´ìŠ¤ íŒŒë¼ë¯¸í„°
         Map<String, Object> newsParams = new HashMap<>();
         newsParams.put("category", "News");
-        newsParams.put("subCategory", "INCOFFEE¼Ò½Ä");
-        newsParams.put("type", "INCOFFEE¼Ò½Ä");
+        newsParams.put("subCategory", "INCOFFEEì†Œì‹");
+        newsParams.put("type", "INCOFFEEì†Œì‹");
         newsParams.put("offset", (pageNews - 1) * pageSize);
         newsParams.put("limit", pageSize);
         if (search != null && !search.isEmpty()) {
             newsParams.put("search", search);
         }
 
-        // ÃÑ °³¼ö
+        // ì´ ê°œìˆ˜
         int noticeTotal = boardService.countByCtg(noticeParams);
         int newsTotal = boardService.countByCtg(newsParams);
 
         int noticeTotalPages = (int) Math.ceil((double) noticeTotal / pageSize);
         int newsTotalPages = (int) Math.ceil((double) newsTotal / pageSize);
         
-        // << ´º½º ÆäÀÌÁö ºí·Ï °è»ê >>
+        // << ë‰´ìŠ¤ í˜ì´ì§€ ë¸”ë¡ ê³„ì‚° >>
         int pageBlock = 5;
         int startPage = Math.max(1, pageNews - pageBlock / 2);
         int endPage = startPage + pageBlock - 1;
@@ -156,11 +156,11 @@ public class BoardController {
             startPage = Math.max(1, endPage - pageBlock + 1);
         }
 
-        // ¸®½ºÆ® Á¶È¸
+        // ë¦¬ìŠ¤íŠ¸ ì¡°íšŒ
         List<BoardDTO> noticeList = boardService.findByCtgPaging(noticeParams);
         List<BoardDTO> newsList = boardService.findByCtgPaging(newsParams);
 
-        // ¸ğµ¨¿¡ °ª ¼³Á¤
+        // ëª¨ë¸ì— ê°’ ì„¤ì •
         model.addAttribute("noticeList", noticeList);
         model.addAttribute("newsList", newsList);
 
@@ -171,7 +171,7 @@ public class BoardController {
         model.addAttribute("noticeTotalPages", noticeTotalPages);
         model.addAttribute("newsTotalPages", newsTotalPages);
         model.addAttribute("pageSize", pageSize);
-        model.addAttribute("search", search); // °Ë»ö¾î À¯Áö
+        model.addAttribute("search", search); // ê²€ìƒ‰ì–´ ìœ ì§€
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
 
@@ -190,8 +190,8 @@ public class BoardController {
 
         Map<String, Object> params = new HashMap<>();
         params.put("category", "News");
-        params.put("subCategory", "ÀÌº¥Æ®");
-        params.put("type", "ÀüÃ¼".equals(type) ? null : type); // ÀüÃ¼ ¼±ÅÃ ½Ã type=null
+        params.put("subCategory", "ì´ë²¤íŠ¸");
+        params.put("type", "ì „ì²´".equals(type) ? null : type); // ì „ì²´ ì„ íƒ ì‹œ type=null
         params.put("offset", offset);
         params.put("limit", pageSize);
         if (search != null && !search.isEmpty()) {
@@ -201,7 +201,7 @@ public class BoardController {
         int eventTotal = boardService.countByCtg(params);
         int eventTotalPages = (int) Math.ceil((double) eventTotal / pageSize);
         
-        // ÆäÀÌÁö ºí·Ï °è»ê (ÃÖ´ë 5°³)
+        // í˜ì´ì§€ ë¸”ë¡ ê³„ì‚° (ìµœëŒ€ 5ê°œ)
         int pageBlock = 5;
         int startPage = Math.max(1, pageEvent - pageBlock / 2);
         int endPage = startPage + pageBlock - 1;
@@ -217,8 +217,8 @@ public class BoardController {
         model.addAttribute("eventTotal", eventTotal);
         model.addAttribute("eventTotalPages", eventTotalPages);
         model.addAttribute("pageSize", pageSize);
-        model.addAttribute("selectedType", type != null ? type : "ÀüÃ¼");
-        model.addAttribute("search", search); // °Ë»ö¾î À¯Áö
+        model.addAttribute("selectedType", type != null ? type : "ì „ì²´");
+        model.addAttribute("search", search); // ê²€ìƒ‰ì–´ ìœ ì§€
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
 
@@ -232,7 +232,7 @@ public class BoardController {
 
         Map<String, Object> params = new HashMap<>();
         params.put("category", "Menu");
-        params.put("subCategory", "½Å¸Ş´º");
+        params.put("subCategory", "ì‹ ë©”ë‰´");
         params.put("type", null);
         params.put("offset", offset);
         params.put("limit", pageSize);
@@ -240,8 +240,8 @@ public class BoardController {
         int newmenuTotal = boardService.countByCtg(params);
         int newmenuTotalPages = (int) Math.ceil((double) newmenuTotal / pageSize);
         
-        // << ÆäÀÌÁö ºí·Ï °è»ê >>
-        int pageBlock = 5; // ÃÖ´ë 5°³ ³ëÃâ
+        // << í˜ì´ì§€ ë¸”ë¡ ê³„ì‚° >>
+        int pageBlock = 5; // ìµœëŒ€ 5ê°œ ë…¸ì¶œ
         int startPage = Math.max(1, pageNewmenu - pageBlock / 2);
         int endPage = startPage + pageBlock - 1;
         if (endPage > newmenuTotalPages) {
@@ -271,7 +271,7 @@ public class BoardController {
 
             Map<String, Object> params = new HashMap<>();
             params.put("category", "Menu");
-            params.put("subCategory", "Ä¿ÇÇ");
+            params.put("subCategory", "ì»¤í”¼");
             params.put("type", null);
             params.put("offset", offset);
             params.put("limit", pageSize);
@@ -279,8 +279,8 @@ public class BoardController {
             int coffeeTotal = boardService.countByCtg(params);
             int coffeeTotalPages = (int) Math.ceil((double) coffeeTotal / pageSize);
             
-            // << ÆäÀÌÁö ºí·Ï °è»ê >>
-            int pageBlock = 5; // ÃÖ´ë 5°³ ³ëÃâ
+            // << í˜ì´ì§€ ë¸”ë¡ ê³„ì‚° >>
+            int pageBlock = 5; // ìµœëŒ€ 5ê°œ ë…¸ì¶œ
             int startPage = Math.max(1, pageCoffee - pageBlock / 2);
             int endPage = startPage + pageBlock - 1;
             if (endPage > coffeeTotalPages) {
@@ -308,10 +308,10 @@ public class BoardController {
 	    Model model) {
 
 	    int pageSize = 12;
-	    // types°¡ null/empty¸é null ³Ñ±è (Mapper¿¡¼­ type!=null Á¶°ÇÀ¸·Î µ¿ÀÛ)
+	    // typesê°€ null/emptyë©´ null ë„˜ê¹€ (Mapperì—ì„œ type!=null ì¡°ê±´ìœ¼ë¡œ ë™ì‘)
 	    String typeParam = null;
 	    if (types != null && !types.isEmpty()) {
-	        if (types.size() == 1 && "ÀüÃ¼".equals(types.get(0))) {
+	        if (types.size() == 1 && "ì „ì²´".equals(types.get(0))) {
 	            typeParam = null;
 	        } else {
 	            typeParam = String.join(",", types);
@@ -320,7 +320,7 @@ public class BoardController {
 
 	    Map<String, Object> params = new HashMap<>();
 	    params.put("category", "Menu");
-	    params.put("subCategory", "³íÄ¿ÇÇ");
+	    params.put("subCategory", "ë…¼ì»¤í”¼");
 	    params.put("type", typeParam);
 
 	    int noncoffeeTotal = boardService.countByCtg(params);
@@ -329,8 +329,8 @@ public class BoardController {
 	    params.put("offset", (pageNoncoffee - 1) * pageSize);
 	    params.put("limit", pageSize);
 	    
-	    // << ÆäÀÌÁö ºí·Ï °è»ê >>
-        int pageBlock = 5; // ÃÖ´ë 5°³ ³ëÃâ
+	    // << í˜ì´ì§€ ë¸”ë¡ ê³„ì‚° >>
+        int pageBlock = 5; // ìµœëŒ€ 5ê°œ ë…¸ì¶œ
         int startPage = Math.max(1, pageNoncoffee - pageBlock / 2);
         int endPage = startPage + pageBlock - 1;
         if (endPage > noncoffeeTotalPages) {
@@ -345,7 +345,7 @@ public class BoardController {
 	    model.addAttribute("noncoffeeTotalPages", noncoffeeTotalPages);
 	    model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
-	    // Ã¼Å©¹Ú½º º¹¿ø À§ÇØ types ³Ñ±âµÇ, nullÀÌ¸é ÀüÃ¼·Î
+	    // ì²´í¬ë°•ìŠ¤ ë³µì› ìœ„í•´ types ë„˜ê¸°ë˜, nullì´ë©´ ì „ì²´ë¡œ
 	    model.addAttribute("selectedTypes", types != null ? types : new ArrayList<>());
 
 	    return "noncoffee";
@@ -359,7 +359,7 @@ public class BoardController {
 
             Map<String, Object> params = new HashMap<>();
             params.put("category", "Menu");
-            params.put("subCategory", "µğÀúÆ®");
+            params.put("subCategory", "ë””ì €íŠ¸");
             params.put("type", null);
             params.put("offset", offset);
             params.put("limit", pageSize);
@@ -367,8 +367,8 @@ public class BoardController {
             int dessertTotal = boardService.countByCtg(params);
             int dessertTotalPages = (int) Math.ceil((double) dessertTotal / pageSize);
             
-            // << ÆäÀÌÁö ºí·Ï °è»ê >>
-            int pageBlock = 5; // ÃÖ´ë 5°³ ³ëÃâ
+            // << í˜ì´ì§€ ë¸”ë¡ ê³„ì‚° >>
+            int pageBlock = 5; // ìµœëŒ€ 5ê°œ ë…¸ì¶œ
             int startPage = Math.max(1, pageDessert - pageBlock / 2);
             int endPage = startPage + pageBlock - 1;
             if (endPage > dessertTotalPages) {
@@ -397,7 +397,7 @@ public class BoardController {
 
             Map<String, Object> params = new HashMap<>();
             params.put("category", "Store");
-            params.put("subCategory", "¿øµÎ");
+            params.put("subCategory", "ì›ë‘");
             params.put("type", null);
             params.put("offset", offset);
             params.put("limit", pageSize);
@@ -405,8 +405,8 @@ public class BoardController {
             int coffeebeanTotal = boardService.countByCtg(params);
             int coffeebeanTotalPages = (int) Math.ceil((double) coffeebeanTotal / pageSize);
             
-            // << ÆäÀÌÁö ºí·Ï °è»ê >>
-            int pageBlock = 5; // ÃÖ´ë 5°³ ³ëÃâ
+            // << í˜ì´ì§€ ë¸”ë¡ ê³„ì‚° >>
+            int pageBlock = 5; // ìµœëŒ€ 5ê°œ ë…¸ì¶œ
             int startPage = Math.max(1, pageCoffeebean - pageBlock / 2);
             int endPage = startPage + pageBlock - 1;
             if (endPage > coffeebeanTotalPages) {
@@ -435,7 +435,7 @@ public class BoardController {
 
             Map<String, Object> params = new HashMap<>();
             params.put("category", "Store");
-            params.put("subCategory", "¸Ó±×ÄÅ/ÅÒºí·¯");
+            params.put("subCategory", "ë¨¸ê·¸ì»µ/í…€ë¸”ëŸ¬");
             params.put("type", null);
             params.put("offset", offset);
             params.put("limit", pageSize);
@@ -443,8 +443,8 @@ public class BoardController {
             int cupTotal = boardService.countByCtg(params);
             int cupTotalPages = (int) Math.ceil((double) cupTotal / pageSize);
             
-            // << ÆäÀÌÁö ºí·Ï °è»ê >>
-            int pageBlock = 5; // ÃÖ´ë 5°³ ³ëÃâ
+            // << í˜ì´ì§€ ë¸”ë¡ ê³„ì‚° >>
+            int pageBlock = 5; // ìµœëŒ€ 5ê°œ ë…¸ì¶œ
             int startPage = Math.max(1, pageCup - pageBlock / 2);
             int endPage = startPage + pageBlock - 1;
             if (endPage > cupTotalPages) {

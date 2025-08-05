@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,20 +32,34 @@
             <div id="main">           	
                 <div id="nameWrap">
                     <input type="text" id="name" name="name" value="${member.name}" readonly>
+                    <p class="red" id="nameErrMsg"></p>
                     <input type="text" id="username" name="username" value="${member.username}" readonly>
                 </div>
                 <div id="infoWrap">
-                	<input type="text" class="inp" id="tel" name="tel" value="${member.tel}" readonly>
-                	<input type="email" class="inp" id="email" name="email" value="${member.email}" readonly>
+                	<div id="telWrap">
+	                	<i class="bi bi-phone tel-icon"></i>
+	                	<input type="text" class="inp" id="tel" name="tel" value="${member.tel}" readonly>
+	                	<p class="red" id="telErrMsg"></p>
+                	</div>
+                	<div id="emailWrap">
+	                	<i class="bi bi-envelope email-icon"></i>
+	                	<input type="email" class="inp" id="email" name="email" value="${member.email}" readonly>
+	                	<p class="red" id="emailErrMsg"></p>
+                	</div>
                 	<div class="inp" id="addWrap">
                 		<div id="postcodeWrap">
-		                	<input type="text" id="sample6_postcode" name="postcode" value="${member.postcode}" readonly>
+		                	<input type="text" id="sample6_postcode" name="postcode" value="${member.postcode}" readonly placeholder="우편번호(선택)">
 		                	<input type="button" id="postBtn" value="검색" onclick="sample6_execDaumPostcode()" style="display:none;">
 	                	</div>
-	                	<input type="text" id="sample6_address" name="address1" value="${member.address1}" readonly>
+	                	<input type="text" id="sample6_address" name="address1" value="${member.address1}" readonly placeholder="지번/도로명 주소">
 	                	<input type="hidden" id="sample6_extraAddress">
-	                	<input type="text" id="sample6_detailAddress" name="address2" value="${member.address2}" readonly>
+	                	<input type="text" id="sample6_detailAddress" name="address2" value="${member.address2}" readonly placeholder="상세주소">
                 	</div>
+                	<div id="chk">
+					    <input type="checkbox" id="marketingYn" name="marketingYn" value="Y" disabled
+					        <c:if test="${member.marketingYn eq 'Y'}">checked</c:if>>
+					    <label for="marketingYn" style="cursor: pointer;">마케팅 알림 동의(선택)</label>
+					</div>
                 </div>
                 <div id="bottomRow">
                     <button type="button" id=editBtn onclick="enableEdit()">수정</button>
@@ -83,8 +98,16 @@ function enableEdit() {
        		input.name !== 'address1'
         ) { // username 제외
             input.removeAttribute('readonly');
+        
+         	// 💡 전화번호 하이픈 제거
+            if (input.name === 'tel') {
+                input.value = input.value.replace(/-/g, '');
+            }
         }
     });
+    
+ 	// 체크박스 활성화
+    document.getElementById('marketingYn').removeAttribute('disabled');
 
     // postBtn 보이기
     document.getElementById('postBtn').style.display = 'inline-block';
@@ -100,10 +123,6 @@ function enableEdit() {
     document.getElementById('cancelBtn').style.display = 'inline-block';
 }
 
-function submitUpdate() {
-    document.getElementById('updateForm').submit();
-}
-
 function cancelEdit() {
     // input 요소들 선택
     const inputs = document.querySelectorAll('#updateForm input');
@@ -111,7 +130,11 @@ function cancelEdit() {
     // 변경 전 값 복원
     inputs.forEach(input => {
         if (input.name && originalValues.hasOwnProperty(input.name)) {
-            input.value = originalValues[input.name];
+        	if (input.type === 'checkbox') {
+                input.checked = originalValues[input.name] === "Y";
+            } else {
+                input.value = originalValues[input.name];
+            }
         }
     });
 
@@ -121,6 +144,9 @@ function cancelEdit() {
             input.setAttribute('readonly', true);
         }
     });
+    
+ 	// 체크박스 비활성화
+    document.getElementById('marketingYn').setAttribute('disabled', true);
 
     // postBtn 숨기기
     document.getElementById('postBtn').style.display = 'none';
@@ -133,6 +159,117 @@ function cancelEdit() {
     // 취소 버튼 숨기기
     document.getElementById('cancelBtn').style.display = 'none';
 }
+
+// 유효성 검사
+function validateAndSubmitForm() {
+    let isValid = true;
+
+    const name = $("#name").val().trim();
+    const tel = $("#tel").val().trim().replace(/-/g, "");  // 하이픈 제거
+    const email = $("#email").val().trim();
+
+    $("#nameErrMsg, #telErrMsg, #emailErrMsg").html("");
+
+    if (!name) {
+        $("#nameErrMsg").html("이름을 입력해 주십시오.");
+        isValid = false;
+    }
+
+    if (!tel) {
+        $("#telErrMsg").html("전화번호를 입력해 주십시오.");
+        isValid = false;
+    } else if (!/^\d{8,11}$/.test(tel)) {
+        $("#telErrMsg").html("전화번호는 숫자만 8~11자리 입력해 주십시오.");
+        isValid = false;
+    }
+
+    if (!email) {
+        $("#emailErrMsg").html("이메일을 입력해 주십시오.");
+        isValid = false;
+    }
+
+    if (isValid) {
+        if (!$("input[name='marketingYn']").is(":checked")) {
+            $("#updateForm").append('<input type="hidden" name="marketingYn" value="N">');
+        }
+        
+     	// 하이픈 제거
+        $("#tel").val($("#tel").val().replace(/-/g, ""));
+
+        document.getElementById("updateForm").submit(); // DOM 방식도 가능
+    }
+}
+
+function submitUpdate() {
+    validateAndSubmitForm();  // 유효성 검사 포함
+}
+
+// 실시간 입력 유효성 체크
+$("#tel").on("input", function () {
+    this.value = this.value.replace(/[^0-9]/g, "");
+    if (/^\d{8,11}$/.test(this.value)) {
+        $("#telErrMsg").html("");
+    }
+});
+
+$("#name").on("input", function () {
+    if ($(this).val().trim() !== "") {
+        $("#nameErrMsg").html("");
+    }
+});
+
+$("#email").on("input", function () {
+    if ($(this).val().trim() !== "") {
+        $("#emailErrMsg").html("");
+    }
+});
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const telInput = document.getElementById("tel");
+    
+    if (telInput && telInput.readOnly) {
+        const raw = telInput.value.replace(/[^0-9]/g, "");
+
+        if (raw.length === 11) {
+        	telInput.value = raw.replace(/^(\d{3})(\d{4})(\d{4})$/, "$1-$2-$3");
+        } else if (raw.length === 10) {
+            if (raw.startsWith("02")) {
+            	telInput.value = raw.replace(/^(\d{2})(\d{4})(\d{4})$/, "$1-$2-$3");
+            } else {
+            	telInput.value = raw.replace(/^(\d{3})(\d{3})(\d{4})$/, "$1-$2-$3");
+            }
+        } else if (raw.length === 9 && raw.startsWith("02")) {
+        	telInput.value = raw.replace(/^(\d{2})(\d{3})(\d{4})$/, "$1-$2-$3");
+        }
+    }
+    
+   //입력 중 자동 하이픈 (수정모드 중일 때만)
+    telInput.addEventListener("input", function () {
+        if (!this.readOnly) {  // 수정모드일 때만 자동 하이픈 적용
+            let raw = this.value.replace(/[^0-9]/g, "");
+
+            if (raw.length <= 10) {
+                // 10자리 번호 (지역번호 포함)
+                if (raw.startsWith("02") && raw.length >= 9) {
+                    // 02 지역번호
+                    this.value = raw.replace(/^(\d{2})(\d{3,4})(\d{4})$/, "$1-$2-$3");
+                } else if (raw.length >= 10) {
+                    // 3자리 지역번호
+                    this.value = raw.replace(/^(\d{3})(\d{3,4})(\d{4})$/, "$1-$2-$3");
+                } else {
+                    this.value = raw;
+                }
+            } else if (raw.length === 11) {
+                // 휴대폰 번호
+                this.value = raw.replace(/^(\d{3})(\d{4})(\d{4})$/, "$1-$2-$3");
+            } else {
+                this.value = raw; // 포맷 안 맞으면 그대로
+            }
+        }
+    });
+});
+
 
 function sample6_execDaumPostcode() {
     new daum.Postcode({

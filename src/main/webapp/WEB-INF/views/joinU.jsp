@@ -46,21 +46,19 @@
                         <p class="red" id="nameErrMsg"></p>
                         <input type="text" class="inp" id="tel" name="tel" placeholder="전화번호">
                         <p class="red" id="telErrMsg"></p>
-                        <!-- <span>ex "-" 없이 숫자만 입력</span> -->
                         <input type="email" class="inp" id="email" name="email"  placeholder="이메일">
                         <p class="red" id="emailErrMsg"></p>
-                        <input type="text" class="inp" id="sample6_postcode" name="postcode" placeholder="우편번호" readonly>
+                        <input type="text" class="inp" id="sample6_postcode" name="postcode" placeholder="우편번호(선택)" readonly>
                         <input type="button" class="btn" value="검색" onclick="sample6_execDaumPostcode()">
                         <input type="text" class="inp" id="sample6_address" name="address1" placeholder="주소" readonly>
                         <input type="hidden" id="sample6_extraAddress">
                         <input type="text" class="inp" id="sample6_detailAddress" name="address2" placeholder="상세주소">
-                        <p class="red" id="addrErrMsg"></p>
+                        <!-- <p class="red" id="addrErrMsg"></p> -->
                     </div>
                     <div id="chk">
-                        <label for="agree">약관동의</label>
-                        <input type="checkbox" id="agree" name="agree">
-                        <label for="agree" style="cursor: pointer;">약관에 동의합니다.</label>
-                        <p class="red" id="agreeErrMsg"></p>
+                    	<input type="checkbox" id="marketingYn" name="marketingYn" value="Y">
+                        <label for="marketingYn" style="cursor: pointer;">마케팅 알림 동의(선택)</label>                        
+                        <!-- <p class="red" id="marketingYnErrMsg"></p> -->
                     </div>
                     <div class="button_final">
                         <input type="submit" value="가입하기">
