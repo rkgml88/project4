@@ -1,0 +1,74 @@
+@charset "UTF-8";
+section{
+    padding-top: 110px;
+    overflow-x: hidden;
+}
+#banner{
+    margin: 0%;
+    padding: 30px;
+    background: url(../img/wood_board.png) no-repeat;
+    background-size: 100%;
+    background-position: bottom;
+    color: transparent;
+    -webkit-text-stroke: 1px white;
+    font-size: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#category{
+    text-transform: uppercase;
+    color: transparent;
+    -webkit-text-stroke: 1px rgb(16, 15, 80);
+    text-shadow: 20px 15px 0 rgb(16, 15, 80);
+    letter-spacing: 1.5px;
+    border-bottom: 1.5px solid rgb(16, 15, 80);
+    font-size: 40px;
+    text-align: center;
+    margin-top: 50px;
+}
+#contain{
+    padding: 3% 20% 10%;
+}
+#main, #map{
+    border: 1px solid rgb(16, 15, 80);
+}
+#main{
+    padding: 80px 70px;
+    border-bottom-right-radius: 30px;
+}
+#map{
+    width: 100%;
+    height: 500px;
+    border-radius: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+#bottomRow{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    border-radius: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    border: 1px solid #ddd;
+    padding: 15px;
+}
+#mapExplain p:first-child{
+    margin-top: 0;
+}
+#mapExplain p:last-child{
+    margin-bottom: 0;
+}
+.blue{
+	color: darkblue;
+}
+#navigationBtn, #loadviewBtn{
+    padding: 10px;
+    border-radius: 15px;
+    border: none;
+    color: white;
+    background-color: rgb(16, 15, 80);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    font-family: 'HANAMDAUM';
+    cursor: pointer;
+    font-size: 14px;
+}
