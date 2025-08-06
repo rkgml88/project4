@@ -58,7 +58,10 @@ function goBack() {
 document.addEventListener('DOMContentLoaded', function () {
     const ctgSlt = document.getElementById('ctgSlt');
     const subCtgSlt = document.getElementById('subCtgSlt');
-    const typeSlt = document.getElementById('typeSlt');
+    const typeSlt = document.getElementById('typeSlt');   
+
+    const categoryParam = '<%= request.getParameter("category") != null ? request.getParameter("category") : "" %>';
+    const subCategoryParam = '<%= request.getParameter("subCategory") != null ? request.getParameter("subCategory") : "" %>';
 
     const subCtgOptions = {
         News: [
@@ -94,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function () {
             { value: '티', text: '티' }
         ]
     };
-
+    
     function updateSelect(selectElement, options) {
         selectElement.innerHTML = '';
         options.forEach(opt => {
@@ -105,10 +108,15 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    function updateSubCtg() {
+    function updateSubCtg(selectedSubCategory = null) {
         const ctgValue = ctgSlt.value;
         const options = subCtgOptions[ctgValue] || [];
         updateSelect(subCtgSlt, options);
+        
+        if (selectedSubCategory) {
+            subCtgSlt.value = selectedSubCategory;
+        }
+        
         updateTypeSlt(); // 초기화
     }
 
@@ -129,7 +137,12 @@ document.addEventListener('DOMContentLoaded', function () {
     subCtgSlt.addEventListener('change', updateTypeSlt);
 
     // 초기화
-    updateSubCtg();
+    if (categoryParam) {
+        ctgSlt.value = categoryParam;
+        updateSubCtg(subCategoryParam);  // 여기에 인자 넘기기
+    } else {
+        updateSubCtg();  // 기본 초기화
+    }
 });
 
 // toastui Editor

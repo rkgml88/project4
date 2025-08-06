@@ -71,7 +71,7 @@
 				    <c:set var="hasType" value="${not empty selectedTypes}" />
 				
 				    <input type="checkbox" name="types" value="전체" id="전체"
-				        <c:if test="${!hasType}">checked</c:if> >
+				        <c:if test="${!hasType or selectedTypes.contains('전체')}">checked</c:if> >
 			        <label for="전체" style="cursor: pointer;">전체</label>
 				
 				    <input type="checkbox" name="types" value="스무디&프라페" id="스무디&프라페"
@@ -131,16 +131,17 @@
 					    <c:set var="typesForUrl" value="${empty selectedTypes ? fn:split('전체', ',') : selectedTypes}" />
 					
 					    <!-- 첫 페이지 이동 버튼 -->
-					    <c:url var="firstPageUrl" value="/noncoffee">
-						    <c:param name="pageNoncoffee" value="1" />
-						    <c:forEach var="t" items="${typesForUrl}">
-						        <c:param name="types" value="${t}" />
-						    </c:forEach>
-						</c:url>
-						
-						<a class="jump" href="${firstPageUrl}">
-						    <i class="bi bi-rewind-fill"></i>
-						</a>
+					    <c:if test="${pageNoncoffee > 1}">
+				            <c:url var="firstPageUrl" value="/noncoffee">
+				                <c:param name="pageNoncoffee" value="1" />
+				                <c:forEach var="t" items="${typesForUrl}">
+				                    <c:param name="types" value="${t}" />
+				                </c:forEach>
+				            </c:url>
+				            <a class="jump" href="${firstPageUrl}">
+				                <i class="bi bi-rewind-fill"></i>
+				            </a>
+				        </c:if>
 					
 					    <!-- 페이지 번호 -->
 					    <c:forEach begin="${startPage}" end="${endPage}" var="p">
@@ -161,21 +162,23 @@
 						</c:forEach>
 					
 					    <!-- 마지막 페이지 이동 버튼 -->
-					    <c:url var="lastPageUrl" value="/noncoffee">
-						    <c:param name="pageNoncoffee" value="${noncoffeeTotalPages}" />
-						    <c:forEach var="t" items="${typesForUrl}">
-						        <c:param name="types" value="${t}" />
-						    </c:forEach>
-						</c:url>
-						
-						<a class="jump" href="${lastPageUrl}">
-						    <i class="bi bi-fast-forward-fill"></i>
-						</a>
+					    <c:if test="${pageNoncoffee < noncoffeeTotalPages}">
+				            <c:url var="lastPageUrl" value="/noncoffee">
+				                <c:param name="pageNoncoffee" value="${noncoffeeTotalPages}" />
+				                <c:forEach var="t" items="${typesForUrl}">
+				                    <c:param name="types" value="${t}" />
+				                </c:forEach>
+				            </c:url>
+				            
+				            <a class="jump" href="${lastPageUrl}">
+				                <i class="bi bi-fast-forward-fill"></i>
+				            </a>
+				        </c:if>
 					</div>
 
                     <!-- 글쓰기 버튼 -->
                     <sec:authorize access="hasRole('ROLE_ADMIN')">
-                    	<button id=writeBtn><a href="write">글쓰기</a></button>
+                    	<button id=writeBtn><a href="write?category=Menu&subCategory=논커피">글쓰기</a></button>
                     </sec:authorize>
                 </div>
             </div>

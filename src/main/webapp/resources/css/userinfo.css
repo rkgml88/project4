@@ -86,10 +86,10 @@ input:focus{
 #postcodeWrap{
 	position: relative;
 }
-#postBtn{
+#postBtn, #postDelBtn{
 	position: absolute;
     bottom: 10px;
-    right: 15px;
+    
     padding: 7px;
     border-radius: 5px;
     border: none;
@@ -99,6 +99,12 @@ input:focus{
     font-family: 'HANAMDAUM';
     cursor: pointer;
     font-size: 12px;
+}
+#postBtn{
+	right: 60px;
+}
+#postDelBtn{
+	right: 15px;
 }
 #sample6_address{
 	border-top: 1px solid #ddd;

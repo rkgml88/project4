@@ -106,13 +106,13 @@
 					      </a>
 					    </c:if>
 					  </div>
-					</div>
+					
 					
                     <!-- 글쓰기 버튼 -->
                     <sec:authorize access="hasRole('ROLE_ADMIN')">
-                    	<button id=writeBtn><a href="write">글쓰기</a></button>
+                    	<button id=writeBtn><a href="write?category=Menu&subCategory=디저트">글쓰기</a></button>
                     </sec:authorize>
-                </div>
+               </div>
             </div>
         </section>
         <!-- footer -->

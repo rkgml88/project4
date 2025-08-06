@@ -107,7 +107,7 @@
 					
                     <!-- 글쓰기 버튼 -->
                     <sec:authorize access="hasRole('ROLE_ADMIN')">
-                    	<button id=writeBtn><a href="write">글쓰기</a></button>
+                    	<button id=writeBtn><a href="write?category=Store&subCategory=머그컵/텀블러">글쓰기</a></button>
                     </sec:authorize>
                 </div>
             </div>

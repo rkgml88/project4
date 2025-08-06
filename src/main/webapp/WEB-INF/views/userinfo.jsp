@@ -50,6 +50,7 @@
                 		<div id="postcodeWrap">
 		                	<input type="text" id="sample6_postcode" name="postcode" value="${member.postcode}" readonly placeholder="우편번호(선택)">
 		                	<input type="button" id="postBtn" value="검색" onclick="sample6_execDaumPostcode()" style="display:none;">
+		                	<input type="button" id="postDelBtn" value="삭제" onclick="postcodeDelete()" style="display:none;">
 	                	</div>
 	                	<input type="text" id="sample6_address" name="address1" value="${member.address1}" readonly placeholder="지번/도로명 주소">
 	                	<input type="hidden" id="sample6_extraAddress">
@@ -111,6 +112,7 @@ function enableEdit() {
 
     // postBtn 보이기
     document.getElementById('postBtn').style.display = 'inline-block';
+    document.getElementById('postDelBtn').style.display = 'inline-block';
     
     document.getElementById('name').focus();
 
@@ -145,11 +147,19 @@ function cancelEdit() {
         }
     });
     
+    // 유효성 검사 지우기
+    const nameErrMsg = document.getElementById("nameErrMsg");
+    const telErrMsg = document.getElementById("telErrMsg");
+    const emailErrMsg = document.getElementById("emailErrMsg");
+
+    $("#nameErrMsg, #telErrMsg, #emailErrMsg").html("");
+    
  	// 체크박스 비활성화
     document.getElementById('marketingYn').setAttribute('disabled', true);
 
     // postBtn 숨기기
     document.getElementById('postBtn').style.display = 'none';
+    document.getElementById('postDelBtn').style.display = 'none';
 
     // 버튼 되돌림
     const editBtn = document.getElementById('editBtn');
@@ -269,6 +279,19 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+
+function postcodeDelete() {
+	const postcodeInput = document.getElementById("sample6_postcode");
+    const address1Input = document.getElementById("sample6_address");
+    const address2Input = document.getElementById("sample6_detailAddress");
+    
+ 	// postcode에 값이 있는 경우만 동작
+    if (postcodeInput.value.trim() !== "") {
+        postcodeInput.value = "";
+        address1Input.value = "";
+        address2Input.value = "";
+    }
+}
 
 
 function sample6_execDaumPostcode() {
