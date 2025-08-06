@@ -37,6 +37,7 @@
             <div id="category">
                 <h1>login</h1>
             </div>
+            	<div id="loginMain">
                 <form action="<c:url value='/login' />" method="post" name="loginFrm"
                     onsubmit="validateForm(this)">
                     <sec:csrfInput />
@@ -54,6 +55,12 @@
                     <input type="submit" value="로그인">
                     <button type="button" id="joinBtn"><a href="joinU" >회원가입</a></button>
                 </form>
+                <div id="findIdPw">
+                	<a href="">아이디 찾기</a>
+                	<span>|</span> 
+                	<a href="">비밀번호 변경</a>
+                </div>
+                </div>
             </div>
         </section>
 

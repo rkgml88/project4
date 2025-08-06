@@ -25,7 +25,7 @@ section{
     text-align: center;
     width: 100%;
 }
-form{
+#loginMain{
     width: 100%;
     padding: 80px 70px;
     border: 1px solid black;
@@ -92,6 +92,20 @@ input[type=submit]{
 input[type=checkbox]:checked {
     accent-color: rgb(16, 15, 80);
 }
+#findIdPw{
+	display: flex;
+	justify-content: center;
+	gap: 5px;
+	margin-top: 15px;
+}
+#findIdPw a, span{
+	color: black;
+	font-size: 12px;
+	
+}
+#findIdPw a:hover{
+	text-decoration: underline;
+}
 
 @media screen and (max-width: 1080px) {
     .loginWrap{
@@ -102,7 +116,7 @@ input[type=checkbox]:checked {
         text-shadow: 20px 15px 0 rgb(16, 15, 80);
         font-size: 40px;
     }
-    form{
+    #loginMain{
         padding: 100px 80px;
     }
     .loginBox p{
@@ -133,7 +147,7 @@ input[type=checkbox]:checked {
     #category h1{
         margin: 30px 0;
     }
-    form{
+    #loginMain{
         padding: 80px 40px;
     }
     .eye-icon {
